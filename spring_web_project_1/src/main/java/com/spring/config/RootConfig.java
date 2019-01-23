@@ -21,6 +21,7 @@ public class RootConfig {
 		dataSource.setUsername("root");
 		dataSource.setPassword("mysqlpwd");
 
+
 		return dataSource;
 	}
 

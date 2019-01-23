@@ -15,6 +15,7 @@ public class RootConfig {
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
 		dataSource.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
 		dataSource.setUrl("jdbc:log4jdbc:mysql://127.0.0.1:3306/study_db?serverTimezone=UTC");
 		dataSource.setUsername("root");

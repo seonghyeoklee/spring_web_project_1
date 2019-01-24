@@ -15,9 +15,33 @@ public class BoardServiceImpl implements BoardService {
 	BoardMapper boardMapper;
 
 	@Override
-	public List<Board> getBoardList() {
+	public List<Board> getboardList() {
 
-		return boardMapper.getBoardList();
+		return boardMapper.getboardList();
+	}
+
+	@Override
+	public int insertBoard(Board board) {
+
+		return boardMapper.insertBoard(board);
+	}
+
+	@Override
+	public Board getBoard(Long boardIdx) {
+
+		return boardMapper.getBoard(boardIdx);
+	}
+
+	@Override
+	public int updateBoard(Board board) {
+
+		return boardMapper.updateBoard(board);
+	}
+
+	@Override
+	public int deleteBoard(Long boardIdx) {
+
+		return boardMapper.deleteBoard(boardIdx);
 	}
 
 }

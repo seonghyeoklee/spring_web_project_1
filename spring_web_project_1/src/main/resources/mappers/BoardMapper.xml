@@ -15,7 +15,8 @@
 	
 	<select id="getboardList" resultMap="resultMapBoard">
 		SELECT * FROM board
-		WHERE boardIdx > 0
+		WHERE board_idx > 0
+		ORDER BY board_idx DESC
 	</select>
 	
 	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="boardIdx">

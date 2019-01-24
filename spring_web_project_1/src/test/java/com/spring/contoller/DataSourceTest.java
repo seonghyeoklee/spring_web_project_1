@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +26,20 @@ public class DataSourceTest {
 	@Setter(onMethod_ = {@Autowired})
 	private DataSource dataSource;
 
+	@Setter(onMethod_ = {@Autowired})
+	private SqlSessionFactory sql;
+
 	@Test
 	public void test() {
 		try {
+			SqlSession session = sql.openSession();
 			Connection con = dataSource.getConnection();
 
+			log.info(session);
 			log.info(con);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 }

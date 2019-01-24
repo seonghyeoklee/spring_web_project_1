@@ -23,7 +23,7 @@ public class RootConfig {
 		dataSource.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
 		dataSource.setUrl("jdbc:log4jdbc:mysql://127.0.0.1:3306/study?serverTimezone=UTC");
 		dataSource.setUsername("root");
-		dataSource.setPassword("mysql");
+		dataSource.setPassword("mysqlpwd");
 
 		return dataSource;
 	}

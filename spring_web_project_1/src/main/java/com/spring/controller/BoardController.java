@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.model.Board;
@@ -25,10 +25,19 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 
+	@GetMapping("/register")
+	public void register() {
+
+	}
+
 	@GetMapping("/list")
 	public String listGET(Model model) {
 
 		List<Board> list = boardService.getboardList();
+
+		if(list == null)
+			throw new NullPointerException();
+
 		model.addAttribute("list", list);
 
 		return "/board/list";
@@ -43,21 +52,40 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 
-	@GetMapping("/{idx}")
-	public String readGET() {
+	@GetMapping("/get")
+	public String readGET(@RequestParam("boardIdx") Long boardIdx, Model model) {
 
-		return "";
+		Board board = boardService.getBoard(boardIdx);
+
+		if(board == null) {
+			throw new NullPointerException();
+		}
+
+		model.addAttribute("board", board);
+
+		return "/board/get";
 	}
 
-	@PutMapping("/{idx}")
-	public String updatePUT() {
+	@PostMapping("/modify")
+	public String updatePUT(RedirectAttributes rttr, Board board) {
 
-		return "";
+		int updateCount = boardService.updateBoard(board);
+
+		if(updateCount == 1)
+			rttr.addAttribute("result", "success");
+
+		return "redirect:/board/list";
 	}
 
-	@DeleteMapping("/{idx}")
-	public String deleteDELETE() {
+	@DeleteMapping("/remove")
+	public String deleteDELETE(@RequestParam("boardIdx") Long boardIdx, RedirectAttributes rttr) {
 
-		return "";
+		int deleteCount = boardService.deleteBoard(boardIdx);
+
+		if(deleteCount == 1) {
+			rttr.addAttribute("result", "success");
+		}
+
+		return "redirect:/board/list";
 	}
 }

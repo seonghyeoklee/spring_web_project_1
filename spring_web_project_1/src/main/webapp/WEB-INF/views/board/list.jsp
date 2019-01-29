@@ -7,7 +7,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		
+		$("#regBtn").on("click", function(){
+			location.href = "/board/register";
+		});
 	});
 </script>
 <div class="row">

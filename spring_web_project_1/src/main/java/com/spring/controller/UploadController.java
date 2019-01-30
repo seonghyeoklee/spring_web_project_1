@@ -1,6 +1,9 @@
 package com.spring.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +54,14 @@ public class UploadController {
 
 		String uploadFolder = "C:" + File.separator + "upload";
 
+		File uploadPath = new File(uploadFolder, getFolder());
+
+		log.info(uploadPath);
+
+		if(uploadPath.exists() == false) {
+			uploadPath.mkdirs();
+		}
+
 		for(MultipartFile multipartFile : uploadFile) {
 			log.info("================================");
 			log.info(multipartFile.getOriginalFilename());
@@ -61,9 +72,11 @@ public class UploadController {
 
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 
-			log.info(uploadFileName);
+			UUID uuid = UUID.randomUUID();
 
-			File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
+			uploadFileName = uuid.toString() + "_" + uploadFileName;
+
+			File saveFile = new File(uploadPath, uploadFileName);
 
 			try {
 				multipartFile.transferTo(saveFile);
@@ -72,5 +85,14 @@ public class UploadController {
 			}
 
 		}
+	}
+
+	private String getFolder() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+
+		String str = sdf.format(date);
+
+		return str.replace("-", File.separator);
 	}
 }

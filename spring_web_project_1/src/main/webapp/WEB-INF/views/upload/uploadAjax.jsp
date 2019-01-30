@@ -17,6 +17,25 @@
 
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
+			var regex = new RegExp("(.*?)\.(zip|exe|sh|alz)$");
+			var maxSize = 5242880;
+			
+			function checkExtension(fileName, fileSize){
+				
+				if(fileSize >= maxSize){
+					alert("파일 사이즈 초과");
+					return false;
+				}
+				
+				if(regex.test(fileName)){
+					alert("업로드 불가");
+					return false;
+				}
+				
+				return true;
+			}
+			
 			$("#uploadBtn").on("click", function(){
 				
 				var formData = new FormData();
@@ -26,6 +45,10 @@
 				console.log(files);
 				
 				for(var i=0; i<files.length; i++){
+					if(!checkExtension(files[i].name, files[i].size)){
+						return false;
+					}
+					
 					formData.append("uploadFile", files[i]);
 				}
 				
@@ -40,6 +63,7 @@
 					}
 				});
 			});
+			
 		});
 	</script>
 </body>

@@ -60,6 +60,7 @@
 					type : "post",
 					success : function(result){
 						console.log("success");
+						console.log(result);
 					}
 				});
 			});

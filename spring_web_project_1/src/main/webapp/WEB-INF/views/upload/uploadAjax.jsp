@@ -6,12 +6,36 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+.uploadResult{
+	width: 100%;
+	background-color: gray;
+}
+.uploadResult ul{
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+}
+.uploadResult ul li{
+	list-style: none;
+	padding: 10px;
+}
+.uploadResult ul li img{
+	width: 100px;
+}
+</style>
+
 <body>
 	<div class="uploadDiv">
 		<input type="file" name="uploadFile" multiple="multiple">
 	</div>
 	
 	<button id="uploadBtn">Upload</button>
+	
+	<div class="uploadResult">
+		<ul></ul>
+	</div>
 	
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
@@ -35,6 +59,8 @@
 				
 				return true;
 			}
+			
+			var cloneObj = $(".uploadDiv").clone();
 			
 			$("#uploadBtn").on("click", function(){
 				
@@ -61,9 +87,31 @@
 					success : function(result){
 						console.log("success");
 						console.log(result);
+						
+						showUploadedFile(result);
+						
+						$(".uploadDiv").html(cloneObj.html());
 					}
 				});
 			});
+			
+			var uploadResult = $(".uploadResult ul");
+			
+			function showUploadedFile(uploadResultArr){
+				var str = "";
+				
+				$(uploadResultArr).each(function(i, obj){
+					if(!obj.image){
+						str += "<li><image src='/resources/img/attach.png'>" + obj.fileName + "</li>";
+					} else {
+						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+						
+						str += "<li><image src='/upload/display?fileName=" + fileCallPath + "'></li>";
+					}
+				});
+				
+				uploadResult.append(str);
+			}
 			
 		});
 	</script>

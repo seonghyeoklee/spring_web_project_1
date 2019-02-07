@@ -216,10 +216,12 @@ public class UploadController {
 			String downloadName = null;
 
 			if(userAgent.contains("Trident")) {
+				log.info("IE");
 				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8").replaceAll("/+", " ");
 			} else if(userAgent.contains("Edge")) {
 				downloadName = URLEncoder.encode(resourceOriginalName, "UTF-8");
 			} else {
+				log.info("Chrome");
 				downloadName = new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");
 			}
 

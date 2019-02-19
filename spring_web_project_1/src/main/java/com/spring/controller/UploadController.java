@@ -236,15 +236,15 @@ public class UploadController {
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(String fileName, String type) {
 		File file;
-
 		try {
+			String path = "D:"+Constant.UPLOAD_FOLDER_PATH + "\\" + URLDecoder.decode(fileName, "UTF-8").replace("/", "\\");
 
-			file = new File("D:"+Constant.UPLOAD_FOLDER_PATH + "\\" + URLDecoder.decode(fileName, "UTF-8"));
+			file = new File(path.trim());
 			file.delete();
 
 			if(type.equals("image")) {
 				String largeFileName = file.getAbsolutePath().replace("s_", "");
-
+				System.out.println(largeFileName);
 				file = new File(largeFileName);
 				file.delete();
 			}

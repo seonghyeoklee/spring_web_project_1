@@ -18,7 +18,7 @@ import com.spring.service.BoardService;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/board/*")
 @Log4j
 public class BoardController {
 
@@ -35,8 +35,9 @@ public class BoardController {
 
 		List<Board> list = boardService.getboardList();
 
-		if(list == null)
+		if(list == null) {
 			throw new NullPointerException();
+		}
 
 		model.addAttribute("list", list);
 
@@ -71,8 +72,9 @@ public class BoardController {
 
 		int updateCount = boardService.updateBoard(board);
 
-		if(updateCount == 1)
+		if(updateCount == 1) {
 			rttr.addAttribute("result", "success");
+		}
 
 		return "redirect:/board/list";
 	}

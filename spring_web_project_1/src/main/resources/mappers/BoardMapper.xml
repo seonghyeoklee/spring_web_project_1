@@ -14,7 +14,14 @@
 	</resultMap>
 	
 	<select id="getboardList" resultMap="resultMapBoard">
-		SELECT * FROM board
+		SELECT
+			board_idx,
+			title,
+			content,
+			writer,
+			created_at,
+			updated_at
+		FROM board
 		WHERE board_idx > 0
 		ORDER BY board_idx DESC
 	</select>
@@ -32,7 +39,14 @@
 	</insert>
 	
 	<select id="getBoard" resultMap="resultMapBoard">
-		SELECT * FROM board
+		SELECT
+			board_idx,
+			title,
+			content,
+			writer,
+			created_at,
+			updated_at
+		FROM board
 		WHERE board_idx = #{boardIdx}
 	</select>
 	

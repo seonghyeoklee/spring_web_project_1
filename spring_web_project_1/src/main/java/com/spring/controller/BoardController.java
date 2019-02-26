@@ -49,13 +49,12 @@ public class BoardController {
 
 		boardService.insertBoard(board);
 
-		rttr.addAttribute("boardIdx", board.getBoardIdx());
+		rttr.addFlashAttribute("result", board.getBoardIdx());
 		return "redirect:/board/list";
 	}
 
-	@GetMapping("/get")
-	public String readGET(@RequestParam("boardIdx") Long boardIdx, Model model) {
-
+	@GetMapping({"/get", "/modify"})
+	public void readGET(@RequestParam("boardIdx") Long boardIdx, Model model) {
 		Board board = boardService.getBoard(boardIdx);
 
 		if(board == null) {
@@ -63,8 +62,6 @@ public class BoardController {
 		}
 
 		model.addAttribute("board", board);
-
-		return "/board/get";
 	}
 
 	@PostMapping("/modify")
@@ -73,7 +70,7 @@ public class BoardController {
 		int updateCount = boardService.updateBoard(board);
 
 		if(updateCount == 1) {
-			rttr.addAttribute("result", "success");
+			rttr.addFlashAttribute("result", "success");
 		}
 
 		return "redirect:/board/list";

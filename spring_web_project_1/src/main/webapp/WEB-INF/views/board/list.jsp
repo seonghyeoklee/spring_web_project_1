@@ -7,9 +7,30 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		var result = '<c:out value="${result}"/>';
+		
+		//등록확인
+		checkModal(result);
+		
+		//뒤로가기 시 history 삭제
+		history.replaceState({}, null, null);
+		
 		$("#regBtn").on("click", function(){
-			location.href = "/board/register";
+			self.location = "/board/register";
 		});
+		
+		
+		function checkModal(result){
+			if(result == '' || history.state){
+				return;
+			}
+			if(parseInt(result) > 0){
+				$(".modal-body").html("게시글 " + parseInt(result) + "번이 등록되었습니다.");
+			}
+			$("#myModal").modal("show");
+		}
+		
 	});
 </script>
 <div class="row">
@@ -26,6 +47,8 @@
 				<button id="regBtn" type="button" class="btn btn-xs pull-right">Register New Board</button>
 			</div>
 			<div class="panel-body">
+			
+				<!-- S : table -->
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
@@ -40,7 +63,7 @@
 						<c:forEach items="${list }" var="board">
 							<tr>
 								<td><c:out value="${board.boardIdx }"></c:out></td>
-								<td><a class="move" href="<c:out value="${board.boardIdx }"/>"><c:out value="${board.title }"></c:out></a></td>
+								<td><a class="move" href="/board/get?boardIdx=<c:out value="${board.boardIdx }"/>"><c:out value="${board.title }"></c:out></a></td>
 								<td><c:out value="${board.writer }"></c:out></td>
 								<td><fmt:formatDate value="${board.createdAt }" pattern="yyyy-MM-dd"/></td>
 								<td><fmt:formatDate value="${board.updatedAt }" pattern="yyyy-MM-dd"/></td>
@@ -48,6 +71,27 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<!-- E : table -->
+				
+				<!-- S : modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="moModalLabel">알림</h4>
+							</div>
+							<div class="modal-body">
+								처리가 완료되었습니다.
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Save changes</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- E : modal -->
 			</div>
 		</div>
 	</div>

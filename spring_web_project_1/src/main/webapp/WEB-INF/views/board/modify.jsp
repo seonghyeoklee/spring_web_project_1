@@ -5,6 +5,29 @@
 
 <%@ include file="../includes/header.jsp" %>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		var formObj = $("form");
+		
+		$("button").on("click", function(e){
+			e.preventDefault();
+			
+			var operation = $(this).data("oper");
+			console.log(operation);
+			
+			if(operation === "remove") {
+				formObj.attr("action", "/board/remove");
+			} else if(operation === "list") {
+				formObj.attr("action", "/board/list").attr("method", "get");
+				formObj.empty();
+			}
+			
+			formObj.submit();
+		});
+		
+	});
+</script>
+
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Board Modify</h1>

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,13 +75,13 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 
-	@DeleteMapping("/remove")
-	public String deleteDELETE(@RequestParam("boardIdx") Long boardIdx, RedirectAttributes rttr) {
+	@PostMapping("/remove")
+	public String deleteDELETE(RedirectAttributes rttr, Board board) {
 
-		int deleteCount = boardService.deleteBoard(boardIdx);
+		int deleteCount = boardService.deleteBoard(board.getBoardIdx());
 
 		if(deleteCount == 1) {
-			rttr.addAttribute("result", "success");
+			rttr.addFlashAttribute("result", "success");
 		}
 
 		return "redirect:/board/list";

@@ -26,6 +26,10 @@
 		ORDER BY board_idx DESC
 	</select>
 	
+	<select id="getBoardListWithPaging" resultMap="resultMapBoard">
+		SELECT * FROM board
+	</select>
+	
 	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="boardIdx">
 		INSERT INTO board (
 			title,

@@ -237,9 +237,9 @@ public class UploadController {
 	public ResponseEntity<String> deleteFile(String fileName, String type) {
 		File file;
 		try {
-			String path = "D:"+Constant.UPLOAD_FOLDER_PATH + "\\" + URLDecoder.decode(fileName, "UTF-8").replace("/", "\\");
+			String path = "D:"+Constant.  UPLOAD_FOLDER_PATH + "\\" + URLDecoder.decode(fileName, "UTF-8").replace("/", "\\");
 
-			file = new File(path.trim());
+ 			file = new File(path.trim());
 			file.delete();
 
 			if(type.equals("image")) {

@@ -11,11 +11,11 @@ public interface BoardMapper {
 
 	public int insertBoard(Board board);
 
-	public Board getBoard(Long boardIdx);
+	public Board getBoard(Long bno);
 
 	public int updateBoard(Board board);
 
-	public int deleteBoard(Long boardIdx);
+	public int deleteBoard(Long bno);
 
 	public List<Board> getBoardListWithPaging(Criteria cri);
 }

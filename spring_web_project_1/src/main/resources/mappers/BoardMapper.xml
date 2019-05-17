@@ -5,37 +5,42 @@
 <mapper namespace="com.spring.mapper.BoardMapper">
 
 	<resultMap type="com.spring.model.Board" id="resultMapBoard">
-		<result column="board_idx" property="boardIdx"/>
+		<result column="bno" property="bno"/>
 		<result column="title" property="title"/>
 		<result column="content" property="content"/>
 		<result column="writer" property="writer"/>
-		<result column="created_at" property="createdAt"/>
-		<result column="updated_at" property="updatedAt"/>
+		<result column="regdate" property="regdate"/>
+		<result column="updatedate" property="updatedate"/>
 	</resultMap>
 	
-	<select id="getboardList" resultMap="resultMapBoard">
+	<select id="getBoardList" resultMap="resultMapBoard">
 		SELECT
-			board_idx,
+			bno,
 			title,
 			content,
 			writer,
-			created_at,
-			updated_at
-		FROM board
-		WHERE board_idx > 0
-		ORDER BY board_idx DESC
+			regdate,
+			updatedate
+		FROM tbl_board
+		WHERE bno > 0
+		ORDER BY bno DESC
 	</select>
 	
 	<select id="getBoardListWithPaging" resultMap="resultMapBoard">
-		SELECT * FROM board
+		SELECT * FROM tbl_board
 	</select>
 	
-	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="boardIdx">
-		INSERT INTO board (
+	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="bno">
+		<selectKey order="BEFORE" keyProperty="bno" resultType="long">
+			SELECT NVL(MAX(bno), 0) + 1 AS bno FROM tbl_board
+		</selectKey>
+		INSERT INTO tbl_board (
+			bno,
 			title,
 			content,
 			writer
 		) VALUES (
+			#{bno},
 			#{title},
 			#{content},
 			#{writer}
@@ -44,27 +49,27 @@
 	
 	<select id="getBoard" resultMap="resultMapBoard">
 		SELECT
-			board_idx,
+			bno,
 			title,
 			content,
 			writer,
-			created_at,
-			updated_at
-		FROM board
-		WHERE board_idx = #{boardIdx}
+			regdate,
+			updatedate
+		FROM tbl_board
+		WHERE bno = #{bno}
 	</select>
 	
 	<update id="updateBoard">
-		UPDATE board SET
+		UPDATE tbl_board SET
 			title = #{title},
 			content = #{content},
-			updated_at = now()
-		WHERE board_idx = #{boardIdx}
+			updatedate = SYSDATE
+		WHERE bno = #{bno}
 	</update>
 	
 	<delete id="deleteBoard">
-		DELETE FROM board
-		WHERE board_idx = #{boardIdx}
+		DELETE FROM tbl_board
+		WHERE bno = #{bno}
 	</delete>
 
 </mapper>

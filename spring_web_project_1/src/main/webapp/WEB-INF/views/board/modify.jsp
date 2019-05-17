@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <%@ include file="../includes/header.jsp" %>
 
 <script type="text/javascript">
@@ -44,7 +41,7 @@
 				<form role="form" action="/board/modify" method="post">
 					<div class="form-group">
 						<label>Bno</label>
-						<input class="form-control" name="boardIdx" value="<c:out value="${board.boardIdx }"/>" readonly="readonly">
+						<input class="form-control" name="bno" value="<c:out value="${board.bno }"/>" readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label>Title</label>
@@ -60,11 +57,11 @@
 					</div>
 					<div class="form-group">
 						<label>CreatedAt</label>
-						<input class="form-control" name="createdAt" value='<fmt:formatDate pattern="yyyy/MM/dd" value="${board.createdAt }"/>' readonly="readonly">
+						<input class="form-control" name="createdAt" value='<fmt:formatDate pattern="yyyy/MM/dd" value="${board.regdate }"/>' readonly="readonly">
 					</div>
 					<div class="form-group">
 						<label>UpdateAt</label>
-						<input class="form-control" name="updatedAt" value='<fmt:formatDate pattern="yyyy/MM/dd" value="${board.updatedAt }"/>' readonly="readonly">
+						<input class="form-control" name="updatedAt" value='<fmt:formatDate pattern="yyyy/MM/dd" value="${board.updatedate }"/>' readonly="readonly">
 					</div>
 					
 					<button type="submit" data-oper="modify" class="btn btn-default">Modify</button>

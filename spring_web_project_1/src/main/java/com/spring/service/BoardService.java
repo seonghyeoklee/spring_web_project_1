@@ -6,7 +6,7 @@ import com.spring.model.Board;
 
 public interface BoardService {
 
-	public List<Board> getboardList();
+	public List<Board> getBoardList();
 
 	public int insertBoard(Board board);
 

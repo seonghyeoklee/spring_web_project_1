@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @ComponentScan(basePackages= {"com.spring"})
@@ -18,12 +20,14 @@ public class RootConfig {
 
 	@Bean
 	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		HikariConfig hikariConfig = new HikariConfig();
+		//hikariConfig.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		hikariConfig.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
+		hikariConfig.setJdbcUrl("jdbc:log4jdbc:oracle:thin:@192.168.0.222:1521:orcl");
+		hikariConfig.setUsername("daeyoon");
+		hikariConfig.setPassword("daeyoon1380");
 
-		dataSource.setDriverClassName("net.sf.log4jdbc.sql.jdbcapi.DriverSpy");
-		dataSource.setUrl("jdbc:log4jdbc:mysql://127.0.0.1:3306/study?serverTimezone=UTC");
-		dataSource.setUsername("root");
-		dataSource.setPassword("mysqlpwd");
+		HikariDataSource dataSource = new HikariDataSource(hikariConfig);
 
 		return dataSource;
 	}

@@ -62,11 +62,11 @@
 					<tbody>
 						<c:forEach items="${list }" var="board">
 							<tr>
-								<td><c:out value="${board.boardIdx }"></c:out></td>
-								<td><a class="move" href="/board/get?boardIdx=<c:out value="${board.boardIdx }"/>"><c:out value="${board.title }"></c:out></a></td>
+								<td><c:out value="${board.bno }"></c:out></td>
+								<td><a class="move" href="/board/get?bno=<c:out value="${board.bno }"/>"><c:out value="${board.title }"></c:out></a></td>
 								<td><c:out value="${board.writer }"></c:out></td>
-								<td><fmt:formatDate value="${board.createdAt }" pattern="yyyy-MM-dd"/></td>
-								<td><fmt:formatDate value="${board.updatedAt }" pattern="yyyy-MM-dd"/></td>
+								<td><fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"/></td>
+								<td><fmt:formatDate value="${board.updatedate }" pattern="yyyy-MM-dd"/></td>
 							</tr>
 						</c:forEach>
 					</tbody>

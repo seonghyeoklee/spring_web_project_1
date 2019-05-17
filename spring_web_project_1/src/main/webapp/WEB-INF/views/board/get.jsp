@@ -14,7 +14,7 @@
 		});
 		
 		$("button[data-oper='list']").on("click", function(){
-			operForm.find("#boardIdx").remove();
+			operForm.find("#bno").remove();
 			operForm.attr("action", "/board/list");
 			operForm.submit();
 		});
@@ -37,7 +37,7 @@
 			
 				<div class="form-group">
 					<label>Bno</label>
-					<input class="form-control" name="bno" value='<c:out value="${board.boardIdx }"/>' readonly="readonly">
+					<input class="form-control" name="bno" value='<c:out value="${board.bno }"/>' readonly="readonly">
 				</div>
 				<div class="form-group">
 					<label>Title</label>
@@ -56,7 +56,7 @@
 				<button data-oper="list" class="btn btn-info">List</button>
 				
 				<form id="operForm" action="/board/modify" method="get">
-					<input type="hidden" id="boardIdx" name="boardIdx" value="<c:out value="${board.boardIdx }"/>"/>
+					<input type="hidden" id="bno" name="bno" value="<c:out value="${board.bno }"/>"/>
 				</form>
 			</div>
 		</div>

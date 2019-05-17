@@ -30,9 +30,9 @@ public class BoardController {
 	}
 
 	@GetMapping("/list")
-	public String listGET(Model model) {
+	public String list(Model model) {
 
-		List<Board> list = boardService.getboardList();
+		List<Board> list = boardService.getBoardList();
 
 		if(list == null) {
 			throw new NullPointerException();
@@ -44,17 +44,17 @@ public class BoardController {
 	}
 
 	@PostMapping("/register")
-	public String createPOST(RedirectAttributes rttr, Board board) {
+	public String create(RedirectAttributes rttr, Board board) {
 
 		boardService.insertBoard(board);
 
-		rttr.addFlashAttribute("result", board.getBoardIdx());
+		rttr.addFlashAttribute("result", board.getBno());
 		return "redirect:/board/list";
 	}
 
 	@GetMapping({"/get", "/modify"})
-	public void readGET(@RequestParam("boardIdx") Long boardIdx, Model model) {
-		Board board = boardService.getBoard(boardIdx);
+	public void get(@RequestParam("bno") Long bno, Model model) {
+		Board board = boardService.getBoard(bno);
 
 		if(board == null) {
 			throw new NullPointerException();
@@ -64,7 +64,7 @@ public class BoardController {
 	}
 
 	@PostMapping("/modify")
-	public String updatePUT(RedirectAttributes rttr, Board board) {
+	public String update(RedirectAttributes rttr, Board board) {
 
 		int updateCount = boardService.updateBoard(board);
 
@@ -76,9 +76,9 @@ public class BoardController {
 	}
 
 	@PostMapping("/remove")
-	public String deleteDELETE(RedirectAttributes rttr, Board board) {
+	public String delete(RedirectAttributes rttr, Board board) {
 
-		int deleteCount = boardService.deleteBoard(board.getBoardIdx());
+		int deleteCount = boardService.deleteBoard(board.getBno());
 
 		if(deleteCount == 1) {
 			rttr.addFlashAttribute("result", "success");

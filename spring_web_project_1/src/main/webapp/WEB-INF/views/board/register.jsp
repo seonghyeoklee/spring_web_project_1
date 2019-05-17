@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <%@ include file="../includes/header.jsp" %>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("button").on("click", function(e){
+			
+			alert($(this).data("oper"));
+			return;
+		});
+		
+	});
+</script>
 
 <div>
 	<div>
@@ -30,7 +38,7 @@
 						<label>Writer</label>
 						<input class="form-control" name="writer">
 					</div>
-					<button type="submit" class="btn btn-default">Submit Button</button>
+					<button type="submit" class="btn btn-default" data-oper="modify">Submit Button</button>
 					<button type="reset" class="btn btn-default">Reset Button</button>
 				</form>
 			</div>

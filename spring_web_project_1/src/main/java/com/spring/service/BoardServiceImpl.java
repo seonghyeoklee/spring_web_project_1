@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.mapper.BoardMapper;
 import com.spring.model.Board;
+import com.spring.model.Criteria;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -14,11 +15,11 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	BoardMapper boardMapper;
 
-	@Override
-	public List<Board> getBoardList() {
-
-		return boardMapper.getBoardList();
-	}
+//	@Override
+//	public List<Board> getBoardList() {
+//
+//		return boardMapper.getBoardList();
+//	}
 
 	@Override
 	public int insertBoard(Board board) {
@@ -42,6 +43,12 @@ public class BoardServiceImpl implements BoardService {
 	public int deleteBoard(Long bno) {
 
 		return boardMapper.deleteBoard(bno);
+	}
+
+	@Override
+	public List<Board> getList(Criteria cri) {
+
+		return boardMapper.getBoardListWithPaging(cri);
 	}
 
 }

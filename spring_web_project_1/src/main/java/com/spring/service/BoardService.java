@@ -3,10 +3,13 @@ package com.spring.service;
 import java.util.List;
 
 import com.spring.model.Board;
+import com.spring.model.Criteria;
 
 public interface BoardService {
 
-	public List<Board> getBoardList();
+	public List<Board> getList(Criteria cri);
+
+	//public List<Board> getBoardList();
 
 	public int insertBoard(Board board);
 

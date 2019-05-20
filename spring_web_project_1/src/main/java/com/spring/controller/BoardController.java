@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.model.Board;
+import com.spring.model.Criteria;
+import com.spring.model.PageDTO;
 import com.spring.service.BoardService;
 
 import lombok.extern.log4j.Log4j;
@@ -30,15 +33,16 @@ public class BoardController {
 	}
 
 	@GetMapping("/list")
-	public String list(Model model) {
+	public String list(Criteria cri, Model model) {
 
-		List<Board> list = boardService.getBoardList();
+		List<Board> list = boardService.getList(cri);
 
 		if(list == null) {
 			throw new NullPointerException();
 		}
 
 		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", new PageDTO(cri, 123));
 
 		return "/board/list";
 	}
@@ -53,7 +57,7 @@ public class BoardController {
 	}
 
 	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("bno") Long bno, Model model) {
+	public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model) {
 		Board board = boardService.getBoard(bno);
 
 		if(board == null) {

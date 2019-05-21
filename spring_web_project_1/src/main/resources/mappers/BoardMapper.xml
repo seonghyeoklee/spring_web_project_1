@@ -69,6 +69,13 @@
 		WHERE bno = #{bno}
 	</select>
 	
+	<select id="getTotalCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM tbl_board
+		WHERE bno > 0
+	</select>
+	
 	<update id="updateBoard">
 		UPDATE tbl_board SET
 			title = #{title},

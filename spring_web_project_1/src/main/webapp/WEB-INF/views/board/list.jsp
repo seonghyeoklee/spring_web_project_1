@@ -64,6 +64,11 @@
 			</div>
 			<div class="panel-body">
 			
+				<form id="actionForm" action="/board/list" method="get">
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+					<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+				</form>
+			
 				<!-- S : table -->
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
@@ -79,7 +84,7 @@
 						<c:forEach items="${list }" var="board">
 							<tr>
 								<td><c:out value="${board.bno }"></c:out></td>
-								<td><a class="move" href="/board/get?bno=<c:out value="${board.bno }"/>"><c:out value="${board.title }"></c:out></a></td>
+								<td><a class="move" href="<c:out value="${board.bno }"/>"><c:out value="${board.title }"></c:out></a></td>
 								<td><c:out value="${board.writer }"></c:out></td>
 								<td><fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"/></td>
 								<td><fmt:formatDate value="${board.updatedate }" pattern="yyyy-MM-dd"/></td>
@@ -89,6 +94,7 @@
 				</table>
 				<!-- E : table -->
 				
+				<!-- S : paging -->
 				<div class="pull-right">
 					<ul class="pagination">
 						<c:if test="${pageMaker.prev }">
@@ -96,7 +102,7 @@
 						</c:if>
 						
 						<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-							<li class="paginate_button"><a href="${num }">${num }</a></li>
+							<li class="paginate_button ${pageMaker.cri.pageNum == num ? "active" : ""}"><a href="${num }">${num }</a></li>
 						</c:forEach>
 						
 						<c:if test="${pageMaker.next }">
@@ -104,11 +110,7 @@
 						</c:if>
 					</ul>
 				</div>
-				
-				<form id="actionForm" action="/board/list" method="get">
-					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-					<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-				</form>
+				<!-- E : paging -->
 				
 				<!-- S : modal -->
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

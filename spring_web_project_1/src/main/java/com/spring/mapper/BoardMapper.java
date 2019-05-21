@@ -18,4 +18,6 @@ public interface BoardMapper {
 	public int deleteBoard(Long bno);
 
 	public List<Board> getBoardListWithPaging(Criteria cri);
+
+	public int getTotalCount(Criteria cri);
 }

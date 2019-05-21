@@ -18,4 +18,6 @@ public interface BoardService {
 	public int updateBoard(Board board);
 
 	public int deleteBoard(Long boardIdx);
+
+	public int getTotal(Criteria cri);
 }

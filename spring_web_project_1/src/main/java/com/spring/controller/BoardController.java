@@ -41,8 +41,10 @@ public class BoardController {
 			throw new NullPointerException();
 		}
 
+		int total = boardService.getTotal(cri);
+
 		model.addAttribute("list", list);
-		model.addAttribute("pageMaker", new PageDTO(cri, 123));
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 		return "/board/list";
 	}
@@ -68,7 +70,7 @@ public class BoardController {
 	}
 
 	@PostMapping("/modify")
-	public String update(RedirectAttributes rttr, Board board) {
+	public String update(RedirectAttributes rttr, Board board, @ModelAttribute("cri") Criteria cri) {
 
 		int updateCount = boardService.updateBoard(board);
 
@@ -76,17 +78,23 @@ public class BoardController {
 			rttr.addFlashAttribute("result", "success");
 		}
 
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+
 		return "redirect:/board/list";
 	}
 
 	@PostMapping("/remove")
-	public String delete(RedirectAttributes rttr, Board board) {
+	public String delete(RedirectAttributes rttr, Board board, @ModelAttribute("cri") Criteria cri) {
 
 		int deleteCount = boardService.deleteBoard(board.getBno());
 
 		if(deleteCount == 1) {
 			rttr.addFlashAttribute("result", "success");
 		}
+
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 
 		return "redirect:/board/list";
 	}

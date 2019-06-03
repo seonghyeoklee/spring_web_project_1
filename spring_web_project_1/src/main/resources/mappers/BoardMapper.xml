@@ -13,6 +13,26 @@
 		<result column="updatedate" property="updatedate"/>
 	</resultMap>
 	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							title LIKE '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							content LIKE '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							writer LIKE '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
 	<select id="getBoardList" resultMap="resultMapBoard">
 		SELECT
 			bno,
@@ -27,7 +47,7 @@
 	</select>
 	
 	<select id="getBoardListWithPaging" resultMap="resultMapBoard">
-		<![CDATA[
+		
 		SELECT
 			bno, title, content, writer, regdate, updatedate
 		FROM (
@@ -35,7 +55,11 @@
 				/*+INDEX_DESC(tbl_board pk_board)*/
 				ROWNUM rn, bno, title, content, writer, regdate, updatedate
 			FROM tbl_board
-			WHERE ROWNUM <= #{pageNum} * #{amount}
+			WHERE
+			
+			<include refid="criteria"></include>
+				
+			<![CDATA[ ROWNUM <= #{pageNum} * #{amount}
 		) WHERE rn > (#{pageNum} - 1) * #{amount}
 		]]>
 	</select>
@@ -73,7 +97,9 @@
 		SELECT
 			COUNT(*)
 		FROM tbl_board
-		WHERE bno > 0
+		WHERE 
+		<include refid="criteria"></include>
+		bno > 0
 	</select>
 	
 	<update id="updateBoard">

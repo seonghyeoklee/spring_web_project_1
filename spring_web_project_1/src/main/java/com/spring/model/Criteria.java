@@ -2,6 +2,8 @@ package com.spring.model;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.spring.common.Constant;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,7 +20,7 @@ public class Criteria {
 	private String keyword;
 
 	public Criteria() {
-		this(1,10);
+		this(1, Constant.MAX_PAGE_ITEMS);
 	}
 
 	public Criteria(int pageNum, int amount) {

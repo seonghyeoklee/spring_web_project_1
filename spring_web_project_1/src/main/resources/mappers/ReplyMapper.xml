@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.ReplyMapper">
+
+	<select id="getListWithPaging" resultType="com.spring.model.Reply">
+		SELECT
+			rno, bno, reply, replyer, replyDate. updatedate
+		FROM TBL_REPLY
+		WHERE bno = #{bno}
+		ORDER BY rno asc
+	</select>
+
+	<select id="read" resultType="com.spring.model.Reply">
+		SELECT
+			*
+		FROM TBL_REPLY
+		WHERE rno = #{rno}
+	</select>
+
+	<insert id="insert">
+		<selectKey order="BEFORE" resultType="long" keyProperty="rno">
+			SELECT NVL(MAX(rno), 0) + 1 AS rno FROM TBL_REPLY
+		</selectKey>
+		INSERT INTO TBL_REPLY (
+			rno,
+			bno,
+			reply,
+			replyer
+		) VALUES (
+			#{rno},
+			#{bno},
+			#{reply},
+			#{replyer}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE TBL_REPLY SET
+			reply = #{reply},
+			updatedate = SYSDATE
+		WHERE rno = #{rno}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM TBL_REPLY
+		WHERE rno = #{rno}
+	</delete>
+
+</mapper>

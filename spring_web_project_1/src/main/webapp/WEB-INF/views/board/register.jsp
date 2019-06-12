@@ -6,7 +6,7 @@
 	$(document).ready(function(){
 		$("button").on("click", function(e){
 			
-			alert($(this).data("oper"));
+
 			return;
 		});
 		
@@ -38,7 +38,7 @@
 						<label>Writer</label>
 						<input class="form-control" name="writer">
 					</div>
-					<button type="submit" class="btn btn-default" data-oper="modify">Submit Button</button>
+					<button type="submit" class="btn btn-default">Submit Button</button>
 					<button type="reset" class="btn btn-default">Reset Button</button>
 				</form>
 			</div>

@@ -6,7 +6,7 @@
 
 	<select id="getListWithPaging" resultType="com.spring.model.Reply">
 		SELECT
-			rno, bno, reply, replyer, replyDate. updatedate
+			rno, bno, reply, replyer, replyDate, updatedate
 		FROM TBL_REPLY
 		WHERE bno = #{bno}
 		ORDER BY rno asc

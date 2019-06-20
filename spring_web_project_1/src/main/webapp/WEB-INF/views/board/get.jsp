@@ -5,6 +5,8 @@
 
 <%@ include file="../includes/header.jsp" %>
 
+<script type="text/javascript" src="/resources/js/reply.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		var operForm = $("#operForm");
@@ -18,6 +20,25 @@
 			operForm.attr("action", "/board/list");
 			operForm.submit();
 		});
+		
+		console.log(replyService);
+	});
+	
+	var bno = '<c:out value="${board.bno}"/>';
+	
+	/* replyService.add(
+		{
+			reply:"JS Test", replyer:"tester", bno:bno
+		},
+		function(result){
+			alert(result);
+		}
+	); */
+	
+	replyService.getList({bno:bno, page:1}, function(list){
+		for(var i = 0, len = list.length||0; i < len; i++){
+			console.log(list[i]);
+		}
 	});
 </script>
 
